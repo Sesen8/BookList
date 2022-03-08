@@ -23,6 +23,7 @@ using std::endl;
  */
 BookList::BookList(const BookList &other) {
 }
+
 /**
  * Copy Assignment operator of the Book List
  * You don't need to implement this method.
@@ -32,6 +33,7 @@ BookList::BookList(const BookList &other) {
 BookList &BookList::operator=(const BookList &rhs) {
     return *this;
 }
+
 /**
  * Default constructor
  * Add your comments
@@ -39,6 +41,7 @@ BookList &BookList::operator=(const BookList &rhs) {
 BookList::BookList() {
     // Add your code
 }
+
 /**
  * Destructor
  * Add your comments
@@ -46,6 +49,7 @@ BookList::BookList() {
 BookList::~BookList() {
     // Add your code
 }
+
 /**
  * Add your comments
  * @param book to be added
@@ -55,6 +59,7 @@ bool BookList::AddBook(const Book &book) {
     // Add your code
     return true;
 }
+
 /**
  * Add your comments
  * @param name
@@ -65,6 +70,7 @@ bool BookList::AddBook(const Book &book) {
 bool BookList::AddBook(const string &name, const string &isbn, unsigned int year) {
     // Add your code
 }
+
 /**
  * Add your comments
  * @param name
@@ -74,6 +80,7 @@ bool BookList::AddBook(const string &name, const string &isbn, unsigned int year
 bool BookList::AddBook(const string &name, unsigned int year) {
     // Add your code
 }
+
 /**
  * Add your comments
  * @param isbn the isbn of the book the user is searching for
@@ -83,6 +90,7 @@ int BookList::IndexOf(const string &isbn) const {
     // Add your code
     return -1;
 }
+
 /**
  * Add your comments
  * @param position
@@ -92,6 +100,7 @@ const Book *BookList::Get(unsigned int position) const {
     // Add your code
     return nullptr;
 }
+
 /**
  * Add your comments
  * @param position
@@ -101,6 +110,7 @@ bool BookList::Remove(unsigned int position) {
     // Add your code
     return true;
 }
+
 /**
  * Add your comments.
  * Format for string to be returned:
@@ -111,6 +121,7 @@ string BookList::ToString() const {
     // Add your code
     return "";
 }
+
 /**
  * Reads from an input stream, each book will be stored in the stream in a single line.
  * @param input stream to read from
@@ -120,6 +131,7 @@ istream &BookList::Read(istream &input) {
     // Add your code
     return input;
 }
+
 /**
  * Writes to the output stream, each book should be stored in a single line.
  * @param output
@@ -129,12 +141,14 @@ ostream &BookList::Write(ostream &output) const {
     // Add your code
     return output;
 }
+
 /**
  * Add your comments
  */
 void BookList::Clear() {
     // Add your code
 }
+
 /**
  * Add your comments
  * Example:
@@ -145,6 +159,7 @@ string BookList::ToJSON() const {
     // Add your code
     return "";
 }
+
 /**
  * Add your comments
  * @return
@@ -152,6 +167,7 @@ string BookList::ToJSON() const {
 unsigned int BookList::Size() const {
     return _size;
 }
+
 /**
  * Add your comments
  * @param book

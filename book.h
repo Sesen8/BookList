@@ -23,16 +23,39 @@ private:
     string _isbn;
     unsigned int _year;
 public:
+
     // Constructor that takes in name and year
+    Book (string name,unsigned int year);
+
     // Constructor that takes in name, isbn and year
+    Book(string name, string isbn, unsigned int year);
+
     // Copy constructor
+    Book(const Book& other);
+
     // ToString method
+    string ToString()const;
+
     // ToJSON method
+    string ToJSON()const;
+
     // ISBN getter/accessor method
+    string GetISBN()const;
+    void SetISBN(const string isbn);
+
     // Name getter/accessor method
+    string GetName()const;
+    void SetName(const string name);
+
     // Year getter/accessor method
+    int GetYear()const;
+    void SetYear(const int year);
+
     // Read from istream method
+    istream& Read(istream& input);
+
     // Write to ostream method
+    ostream& Write(ostream& output)const;
 };
 
  bool IsValidISBN(const string& isbn);
