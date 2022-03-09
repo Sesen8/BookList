@@ -6,6 +6,7 @@
  * Author:  ** your name here **
  */
 #include "book_list.h"
+#include "book.h"
 
 #include <sstream>
 #include <string>
@@ -39,7 +40,9 @@ BookList &BookList::operator=(const BookList &rhs) {
  * Add your comments
  */
 BookList::BookList() {
-    // Add your code
+    _head = nullptr;
+    _size =0;
+
 }
 
 /**
@@ -47,7 +50,14 @@ BookList::BookList() {
  * Add your comments
  */
 BookList::~BookList() {
-    // Add your code
+    Node* tmp = _head;
+    while(_head != nullptr){
+        _head = tmp->next;
+        tmp->next = nullptr;
+        delete tmp;
+        tmp = _head;
+    }
+
 }
 
 /**
@@ -56,7 +66,14 @@ BookList::~BookList() {
  * @return always returns true
  */
 bool BookList::AddBook(const Book &book) {
-    // Add your code
+    Node* newNode = new Node();
+    Book* newBook = new Book(book);
+    newNode->book = newBook;
+    newNode->next = _head;
+    _head = newNode;
+
+    _size++;
+
     return true;
 }
 
@@ -68,7 +85,16 @@ bool BookList::AddBook(const Book &book) {
  * @return always returns true
  */
 bool BookList::AddBook(const string &name, const string &isbn, unsigned int year) {
-    // Add your code
+
+    Node* newNode =  new Node();
+    Book* newBook = new Book(name,isbn,year);
+    newNode->book = newBook;
+    newNode->next = _head;
+    _head = newNode;
+
+    _size++;
+
+    return true;
 }
 
 /**
@@ -78,7 +104,16 @@ bool BookList::AddBook(const string &name, const string &isbn, unsigned int year
  * @return always returns true
  */
 bool BookList::AddBook(const string &name, unsigned int year) {
-    // Add your code
+
+    Node* newNode =  new Node();
+    Book* newBook = new Book(name,year);
+    newNode->book = newBook;
+    newNode->next = _head;
+    _head = newNode;
+
+    _size++;
+
+    return true;
 }
 
 /**
@@ -87,7 +122,14 @@ bool BookList::AddBook(const string &name, unsigned int year) {
  * @return position of the book in the list if found, -1 otherwise
  */
 int BookList::IndexOf(const string &isbn) const {
-    // Add your code
+    int i = 0;
+    for (Node* ptr = _head; ptr != nullptr; ptr = ptr->next){
+        if (ptr->book->GetISBN() == isbn){
+            return i;
+        }
+        i++;
+    }
+
     return -1;
 }
 
@@ -97,7 +139,15 @@ int BookList::IndexOf(const string &isbn) const {
  * @return
  */
 const Book *BookList::Get(unsigned int position) const {
-    // Add your code
+
+    Node* ptr = _head;
+    if (position < _size){
+        for (int i =0; i <position+1; i++, ptr=ptr->next){
+
+        }
+        return ptr->book;
+    }
+
     return nullptr;
 }
 
@@ -107,7 +157,31 @@ const Book *BookList::Get(unsigned int position) const {
  * @return
  */
 bool BookList::Remove(unsigned int position) {
-    // Add your code
+
+    if (position == 1 && _head == nullptr) {
+        Node *nodeToDelete = _head;
+        _head = _head->next;
+        delete nodeToDelete;
+        return true;
+    }
+
+    else {
+        Node *tmp = _head;
+
+
+    for (int i = 1; i < position - 1; i++) {
+        if (tmp != nullptr) {
+            tmp = tmp->next;
+        }
+    }
+
+    if (tmp != nullptr && tmp->next != nullptr) {
+        Node *nodeToDelete = tmp->next;
+        tmp->next = tmp->next->next;
+        delete nodeToDelete;
+    }
+}
+
     return true;
 }
 
@@ -138,8 +212,12 @@ istream &BookList::Read(istream &input) {
  * @return output to allow stream chaining
  */
 ostream &BookList::Write(ostream &output) const {
-    // Add your code
+    for (Node* tmp = _head; tmp != nullptr; tmp = tmp->next){
+        output << tmp->book << "\n";
+
+    }
     return output;
+
 }
 
 /**

@@ -37,7 +37,9 @@ Book::Book(string name, string isbn, unsigned int year){
 
 // Implementation of Copy constructor
 Book::Book(const Book &other) {
-
+    _name = other.GetName();
+    _isbn = other.GetISBN();
+    _year = other.GetYear();
 
 }
 
@@ -52,7 +54,7 @@ string Book::ToString() const {
 // Format: {"name":"Algorithm Design", "isbn":"0321295358", "year":2015}
 string Book::ToJSON() const {
 
-   // cout << "{\"name\":\"" + _name + "\", \"isbn\":\"" + _isbn + "\", \"year\":" + std::to_string(_year) + "}";
+
     return "{\"name\":\"" + _name + "\", \"isbn\":\"" + _isbn + "\", \"year\":" + std::to_string(_year) + "}";
 }
 
@@ -97,9 +99,9 @@ istream& Book::Read(istream &input) {
     secondDot = line.find(".", firstDot+1);
 
     string name = line.substr(0,firstDot);
-
     string isbn = line.substr(firstDot+1,secondDot-firstDot-1);
     string year = line.substr(secondDot+1,string::npos);
+
     int newYear = stoi(year);
 
 
@@ -134,6 +136,33 @@ ostream& Book::Write(ostream &output) const {
  * @return true if the isbn given is a valid isbn, false otherwise
  */
 bool IsValidISBN(const string& isbn){
-    // Add your code
+    if (isbn.length() != 10){
+        if (isbn.length() != 13){
+            return false;
+        }
+    }
+    if (isbn.length() == 10){
+        int total = 0;
+        for (int i=0; i<9; i++){
+            int num = isbn[i]-'0';
+            if (0>num || 9<num){
+                return false;
+            }
+            total += (num *(10-i));
+        }
+        char endNumber = isbn[9];
+        if (endNumber!= 'X' && (endNumber < '0' || endNumber > '9')){
+            return false;
+        }
+        if (endNumber == 'X'){
+            total+=10;
+        }
+        else {
+            total+=endNumber - '0';
+        }
+        return (total%11==0);
+    }
+
+    return true;
 
 }
