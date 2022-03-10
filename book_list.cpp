@@ -122,6 +122,7 @@ bool BookList::AddBook(const string &name, unsigned int year) {
  * @return position of the book in the list if found, -1 otherwise
  */
 int BookList::IndexOf(const string &isbn) const {
+
     int i = 0;
     for (Node* ptr = _head; ptr != nullptr; ptr = ptr->next){
         if (ptr->book->GetISBN() == isbn){
@@ -142,10 +143,12 @@ const Book *BookList::Get(unsigned int position) const {
 
     Node* ptr = _head;
     if (position < _size){
-        for (int i =0; i <position+1; i++, ptr=ptr->next){
-
+        for (int i =0; i <position; i++){
+            ptr = ptr->next;
         }
-        return ptr->book;
+        if (ptr != nullptr) {
+            return ptr->book;
+        }
     }
 
     return nullptr;
@@ -158,31 +161,38 @@ const Book *BookList::Get(unsigned int position) const {
  */
 bool BookList::Remove(unsigned int position) {
 
-    if (position == 1 && _head == nullptr) {
+    if (_head == nullptr){
+        return false;
+    }
+
+
+    if (position == 0) {
         Node *nodeToDelete = _head;
         _head = _head->next;
         delete nodeToDelete;
+        _size--;
         return true;
     }
 
-    else {
+    if (position < _size) {
         Node *tmp = _head;
 
-
-    for (int i = 1; i < position - 1; i++) {
-        if (tmp != nullptr) {
-            tmp = tmp->next;
+        for (int i = 1; i < position - 1; i++) {
+            if (tmp != nullptr) {
+                tmp = tmp->next;
+            }
         }
-    }
 
-    if (tmp != nullptr && tmp->next != nullptr) {
-        Node *nodeToDelete = tmp->next;
-        tmp->next = tmp->next->next;
-        delete nodeToDelete;
-    }
+        if (tmp != nullptr && tmp->next != nullptr) {
+            Node *nodeToDelete = tmp->next;
+            tmp->next = tmp->next->next;
+            delete nodeToDelete;
+        }
+        _size--;
+        return true;
 }
 
-    return true;
+    return false;
 }
 
 /**
@@ -192,8 +202,22 @@ bool BookList::Remove(unsigned int position) {
  * @return
  */
 string BookList::ToString() const {
-    // Add your code
-    return "";
+
+    if (_head == nullptr){
+        return "[]";
+    }
+
+    Node* ptr = nullptr;
+    string booklist = "[";
+    for (ptr = _head; ptr->next != nullptr; ptr=ptr->next ){
+        booklist+= ptr->book->ToString() + ",";
+    }
+
+
+
+    booklist+= ptr->book->ToString() + "]";
+
+    return booklist;
 }
 
 /**
@@ -202,7 +226,9 @@ string BookList::ToString() const {
  * @return input to allow stream chaining
  */
 istream &BookList::Read(istream &input) {
-    // Add your code
+
+
+
     return input;
 }
 
@@ -224,7 +250,16 @@ ostream &BookList::Write(ostream &output) const {
  * Add your comments
  */
 void BookList::Clear() {
-    // Add your code
+
+    Node* tmp = new Node;
+    if (_head != nullptr){
+        tmp = _head;
+        _head = _head->next;
+        delete tmp;
+    }
+
+    _head = nullptr;
+    _size = 0;
 }
 
 /**
@@ -234,8 +269,22 @@ void BookList::Clear() {
  * @return
  */
 string BookList::ToJSON() const {
-    // Add your code
-    return "";
+
+    if (_head == nullptr){
+        return "[]";
+    }
+
+    Node* ptr = nullptr;
+    string booklist = "[";
+    for (ptr = _head; ptr->next != nullptr; ptr=ptr->next ){
+        booklist+= "{" + ptr->book->ToJSON() + "},";
+    }
+
+
+
+    booklist += "{" + ptr->book->ToJSON() + "}]";
+
+    return booklist;
 }
 
 /**
@@ -243,6 +292,7 @@ string BookList::ToJSON() const {
  * @return
  */
 unsigned int BookList::Size() const {
+
     return _size;
 }
 
