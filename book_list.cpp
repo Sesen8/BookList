@@ -227,7 +227,24 @@ string BookList::ToString() const {
  */
 istream &BookList::Read(istream &input) {
 
+    _head = new Node();
+    _head->book = new Book("","",0);
+    _head->book->Read(input);
 
+    Node* ptr = _head;
+    while (!input.eof()){
+        int test = input.peek();
+        if(input.peek() == -1) {
+            break;
+        }
+        Node* newNode = new Node();
+        ptr->next = newNode;
+
+        newNode->book = new Book("","",0);
+        newNode->book->Read(input);
+
+        ptr = ptr->next;
+    }
 
     return input;
 }
