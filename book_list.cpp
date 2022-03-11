@@ -210,7 +210,7 @@ string BookList::ToString() const {
     Node* ptr = nullptr;
     string booklist = "[";
     for (ptr = _head; ptr->next != nullptr; ptr=ptr->next ){
-        booklist+= ptr->book->ToString() + ",";
+        booklist+= ptr->book->ToString() + ", ";
     }
 
 
@@ -227,23 +227,13 @@ string BookList::ToString() const {
  */
 istream &BookList::Read(istream &input) {
 
-    _head = new Node();
-    _head->book = new Book("","",0);
-    _head->book->Read(input);
-
-    Node* ptr = _head;
+    Book book("","",0);
     while (!input.eof()){
-        int test = input.peek();
         if(input.peek() == -1) {
             break;
         }
-        Node* newNode = new Node();
-        ptr->next = newNode;
-
-        newNode->book = new Book("","",0);
-        newNode->book->Read(input);
-
-        ptr = ptr->next;
+        book.Read(input);
+        AddBook(book);
     }
 
     return input;
@@ -255,10 +245,11 @@ istream &BookList::Read(istream &input) {
  * @return output to allow stream chaining
  */
 ostream &BookList::Write(ostream &output) const {
-    for (Node* tmp = _head; tmp != nullptr; tmp = tmp->next){
-        output << tmp->book << "\n";
 
+    for(Node* ptr = _head; ptr!= nullptr; ptr=ptr->next){
+        ptr->book->Write(output) << endl;
     }
+
     return output;
 
 }
@@ -294,12 +285,12 @@ string BookList::ToJSON() const {
     Node* ptr = nullptr;
     string booklist = "[";
     for (ptr = _head; ptr->next != nullptr; ptr=ptr->next ){
-        booklist+= "{" + ptr->book->ToJSON() + "},";
+        booklist+= ptr->book->ToJSON() + ", ";
     }
 
 
 
-    booklist += "{" + ptr->book->ToJSON() + "}]";
+    booklist += ptr->book->ToJSON() + "]";
 
     return booklist;
 }
