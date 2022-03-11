@@ -165,7 +165,6 @@ bool BookList::Remove(unsigned int position) {
         return false;
     }
 
-
     if (position == 0) {
         Node *nodeToDelete = _head;
         _head = _head->next;
@@ -191,7 +190,6 @@ bool BookList::Remove(unsigned int position) {
         _size--;
         return true;
 }
-
     return false;
 }
 
@@ -206,15 +204,11 @@ string BookList::ToString() const {
     if (_head == nullptr){
         return "[]";
     }
-
     Node* ptr = nullptr;
     string booklist = "[";
     for (ptr = _head; ptr->next != nullptr; ptr=ptr->next ){
         booklist+= ptr->book->ToString() + ", ";
     }
-
-
-
     booklist+= ptr->book->ToString() + "]";
 
     return booklist;

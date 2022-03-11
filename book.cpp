@@ -160,11 +160,41 @@ bool IsValidISBN(const string& isbn){
         else {
             total+=endNumber - '0';
         }
-        return (total%11==0);
+
+        if(total%11==0){
+            return true;
+        }
+
+    }
+
+    if(isbn.length() == 13){
+        int total = 0;
+        for(int i = 0; i<12;i++){
+            int num = isbn[i] - '0';
+
+            int timesBy;
+            if (i%2==0) {
+                timesBy = 1;
+            }
+            else {
+                timesBy = 3;
+            }
+            total +=(num*timesBy);
+
+        }
+        int endNumber = isbn[12] -'0';
+        int leftOverNum;
+        leftOverNum = total% 10;
+        int check = 10 - leftOverNum;
+        if(endNumber == check){
+            return true;
+        }
+
+
+
     }
 
 
 
-    return true;
 
 }
