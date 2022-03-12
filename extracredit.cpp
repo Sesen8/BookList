@@ -4,12 +4,13 @@
 #include "menu_copy.h"
 #include "menu_element_copy.h"
 #include "book.h"
-#inlcude "book_list.h"
+#include "book_list.h"
 #include <string>
 #include <iostream>
 
 
 using std::cout;
+using std::getline;
 using std::cin;
 using std::endl;
 //using std::setw;
@@ -23,11 +24,11 @@ int main(int argc, char* argv[]) {
 
     Menu *MenuNew;
 
-    MenuNew = new Menu(7, cout, cin, cerr);
+    MenuNew = new Menu(6, cout, cin, cerr);
 
     MenuNew->SetErrorMessage("- - > Unrecognized Input < - -");
     MenuNew->SetInvalidOption("- - > Please Input One of the Given Choices < - -");
-    MenuNew->SetInputType(INT);
+
     MenuNew->SetTitle("Book Store");
 
     MenuNew->AddMenuOption(0, "1", ". Add a Book");
@@ -39,7 +40,7 @@ int main(int argc, char* argv[]) {
 
 
     int selectedOption;
-    Node* bookList = nullptr;
+    BookList* bookList = new BookList();
 
 
 
@@ -47,100 +48,107 @@ int main(int argc, char* argv[]) {
     while((selectedOption = MenuNew->Run()) != EXIT){
 
 
-        // checks if user selected 1, creates array
+        // checks if user selected 1, adds book to list
         if (selectedOption == 0){
-            if(bookList != nullptr){
-                delete[] createdArray;
-                cout << "The created list will be lost" << endl;
-            }
-            cout << "Please input the maximum capacity of the array: ";
-            cin >> sizeofArray;
+            if(bookList->Size() == 0){
+                bookList->Clear();
 
-            while(sizeofArray < 0){
-                cout << "Please input the maximum capacity of the array: " << endl;
-                cin >> sizeofArray;
             }
-            createdArray = new double[sizeofArray];
-            cout << "Array Created Successfully" << endl;
-            option = 0;
+
+
+            string name;
+            string isbn;
+            int year;
+
+            cout << "Enter the name of the book you would like to add... " << endl;
+
+            //getline(cin, name);
+            cin >>name;
+
+            cout << "Enter the isbn of the book you would like to add... " << endl;
+
+            cin >> isbn;
+
+            cout << "Enter the year of the publising date of the book you would like to add... " << endl;
+
+            cin >> year;
+
+            bookList->AddBook(name,isbn,year);
+            cout << "Book Added Successfully" << endl;
+
         }
 
 
 
-        // checks if user selected 2, adds numbers to array
+        // checks if user selected 2, find a book
+        if (selectedOption ==1){
+            if(bookList->Size() == 0){
+                cout << "Need to create array first!" << endl;
+                continue;
+            }
+
+            string isbn;
+            cout << "Input the isbn for the book you want to find ";
+            cin >> isbn;
+            cout << bookList->IndexOf(isbn) << endl;
+
+        }
+
+
+        // checks if user selected 2, get a book
         if (selectedOption ==2){
-            if(createdArray == nullptr){
+            if(bookList->Size() == 0){
                 cout << "Need to create array first!" << endl;
                 continue;
             }
-            double userAdd;
-            if(option >= sizeofArray){
-                cout <<"Array is full" << endl;
-                continue;
-            }
-            cout << "Adding Number to Array" << endl;
-            cout << "Please input the number you want to add: ";
-            cin >> userAdd;
 
+            int position;
+            cout << "Input the position of the book you want to find ";
+            cin >> position;
 
-            createdArray[option] = userAdd;
-            cout << "Number "<< userAdd<< " Added to Position "<<option<< " Successfully" << endl;
-            option+=1;
-        }
-
-
-        // checks if user selected 3, lists added numbers
-        if(selectedOption ==3){
-            if(createdArray == nullptr){
-                cout << "Need to create array first!" << endl;
-                continue;
-            }
-            cout << "Listing Numbers" << endl;
-            for(int i =0; i<option; i++){
-                cout << i << " " << createdArray[i] << endl;
-            }
-        }
-
-
-        // checks if user selected 4, removes selected number
-        if(selectedOption ==4){
-            if(createdArray == nullptr){
-                cout << "Need to create array first!" << endl;
-                continue;
-            }
-            for(int i =0; i<option; i++){
-                cout << i << " " << createdArray[i] << endl;
-            }
-
-            cout <<"What is the position where you want to remove a number: ";
-            int removePos;
-            cin >> removePos;
-            if (removePos >=0 && removePos < option){
-                for (int i = removePos; i<option-1; i++){
-                    createdArray[i] = createdArray[i+1];
-                }
-                cout << "Number in Position 0 Removed Successfully" << endl;
-                option = option -1;
+            if (position < bookList->Size()) {
+                cout << bookList->Get(position);
             }
             else {
-                cout << "Invalid Position" << endl;
-            }
+                cout << "The position is invalid" << endl;
 
         }
 
 
-        // checks if user selected 5, calculates the average of array
-        if (selectedOption == 6){
-            if(createdArray == nullptr){
-                cout << "Need to create array first!" << endl;
+
+        // checks if user selected 3, list added books
+        if(selectedOption ==3){
+            if(bookList->Size() == 0){
+                cout << "Need to create list first!" << endl;
                 continue;
             }
-            double total = 0.0;
-            for (int i = 0; i<option; i++){
-                total+=createdArray[i];
+            cout << "Listing Books" << endl;
+            cout << bookList->ToString() << endl;
+        }
+
+
+        // checks if user selected 4, removes selected book
+        if(selectedOption ==4){
+            if(bookList->Size() == 0){
+                cout << "Need to create a list first!" << endl;
+                continue;
             }
-            double average = total/option;
-            cout << "The average is " << average << endl;
+
+            cout <<"What is the position where you want to remove a book: ";
+            int removePos;
+            cin >> removePos;
+            bookList->Remove(removePos);
+            cout << "Book in position " << removePos << " removed successfully" << endl;
+
+        }
+
+        if(selectedOption ==5){
+            if(bookList->Size() == 0){
+                cout << "List is already empty" << endl;
+                continue;
+            }
+            bookList->Clear();
+
         }
 
 
