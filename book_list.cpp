@@ -61,7 +61,7 @@ BookList::~BookList() {
 }
 
 /**
- * Add your comments
+ * @this method adds an entire book to the list
  * @param book to be added
  * @return always returns true
  */
@@ -78,7 +78,7 @@ bool BookList::AddBook(const Book &book) {
 }
 
 /**
- * Add your comments
+ * @this method adds a book with a name, isbn number and publishing date
  * @param name
  * @param isbn
  * @param year
@@ -98,7 +98,7 @@ bool BookList::AddBook(const string &name, const string &isbn, unsigned int year
 }
 
 /**
- * Add your comments
+ * @this method adds a book with a name, isbn number and publishing date
  * @param name
  * @param year
  * @return always returns true

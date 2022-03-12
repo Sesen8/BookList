@@ -12,10 +12,10 @@
 
 
 
-#ifndef MENU_H
-#define MENU_H
+#ifndef MENU_COPY_H
+#define MENU_COPY_H
 
-#include "menu_element.h"
+#include "menu_element_copy.h"
 
 #include <string>
 #include <iostream>
@@ -69,4 +69,4 @@ public:
 };
 
 
-#endif //MENU_H
+#endif //MENU_COPY_H

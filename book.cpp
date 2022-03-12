@@ -105,7 +105,7 @@ istream& Book::Read(istream &input) {
     int newYear = stoi(year);
 
 
-
+    //sends the infromation to the class
     this->SetName(name);
     this->SetISBN(isbn);
     this->SetYear(newYear);
@@ -118,6 +118,7 @@ istream& Book::Read(istream &input) {
 // This output *does not* include an end-line
 ostream& Book::Write(ostream &output) const {
 
+    //gets the information from the read function
     string name1 = GetName();
     string isbn1 = GetISBN();
     int year1 = GetYear();
@@ -136,11 +137,15 @@ ostream& Book::Write(ostream &output) const {
  * @return true if the isbn given is a valid isbn, false otherwise
  */
 bool IsValidISBN(const string& isbn){
+
+    //checks if the given isbn is not 10 or 13 if it is returns false
     if (isbn.length() != 10){
         if (isbn.length() != 13){
             return false;
         }
     }
+
+    //first to check if given isbn is length of 10
     if (isbn.length() == 10){
         int total = 0;
         for (int i=0; i<9; i++){
@@ -161,12 +166,14 @@ bool IsValidISBN(const string& isbn){
             total+=endNumber - '0';
         }
 
+        // if there is no remainder return true
         if(total%11==0){
             return true;
         }
 
     }
 
+    // checks if given isbn is length of 13
     if(isbn.length() == 13){
         int total = 0;
         for(int i = 0; i<12;i++){
@@ -182,6 +189,7 @@ bool IsValidISBN(const string& isbn){
             total +=(num*timesBy);
 
         }
+
         int endNumber = isbn[12] -'0';
         int leftOverNum;
         leftOverNum = total% 10;

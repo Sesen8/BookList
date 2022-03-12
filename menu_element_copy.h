@@ -11,8 +11,8 @@
  */
 
 
-#ifndef MENU_ELEMENT_H
-#define MENU_ELEMENT_H
+#ifndef MENU_ELEMENT_COPY_H
+#define MENU_ELEMENT_COPY_H
 
 #include <string>
 using std::string;
@@ -42,4 +42,4 @@ public:
 };
 
 
-#endif //MENU_ELEMENT_H
+#endif //MENU_ELEMENT_COPY_H
