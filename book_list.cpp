@@ -223,7 +223,7 @@ istream &BookList::Read(istream &input) {
 
     Book book("","",0);
     while (!input.eof()){
-        if(input.peek() == -1) {
+        if(input.peek() == -1) { //parker lab assistant helped debugged to use -1 as break number
             break;
         }
         book.Read(input);
