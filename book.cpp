@@ -1,15 +1,17 @@
 /**
  * Title:   Lab 4 - Book class implementation
  *
- * Purpose: ** your purpose here **
+ * Purpose: ** This program includes implementations of book class methods **
+ *          ** to gather information about a books name, isbn and publishing date**
+ *
  * Class:   CSC 2430 Winter 2022
- * Author:  ** your name here **
+ * Author:  ** Sesen Yonas **
  */
-#include "book.h"
 
+#include "book.h"
 #include <string>
 #include <iostream>
-#include <sstream>
+
 
 using std::string;
 using std::ostream;
@@ -118,7 +120,7 @@ istream& Book::Read(istream &input) {
 // This output *does not* include an end-line
 ostream& Book::Write(ostream &output) const {
 
-    //gets the information from the read function
+    //gets the information from the class sent from the read function
     string name1 = GetName();
     string isbn1 = GetISBN();
     int year1 = GetYear();
@@ -178,8 +180,8 @@ bool IsValidISBN(const string& isbn){
         int total = 0;
         for(int i = 0; i<12;i++){
             int num = isbn[i] - '0';
-
             int timesBy;
+            //checks if even
             if (i%2==0) {
                 timesBy = 1;
             }
@@ -187,9 +189,9 @@ bool IsValidISBN(const string& isbn){
                 timesBy = 3;
             }
             total +=(num*timesBy);
-
         }
 
+        // begins checking last number
         int endNumber = isbn[12] -'0';
         int leftOverNum;
         leftOverNum = total% 10;
@@ -198,11 +200,6 @@ bool IsValidISBN(const string& isbn){
             return true;
         }
 
-
-
     }
-
-
-
 
 }

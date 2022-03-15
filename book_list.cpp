@@ -1,21 +1,28 @@
 /**
  * Title:   Lab 4 - BookList class implementation.
  *
- * Purpose: ** your purpose here **
+ * Purpose: ** This program inlcudes the implementation of the booklist class methods **
+ *          ** to add, remove, clear, find, convert books to a booklist.**
+ *
  * Class:   CSC 2430 Winter 2022
- * Author:  ** your name here **
+ * Author:  ** Sesen Yonas **
  */
+
+
 #include "book_list.h"
 #include "book.h"
-
-#include <sstream>
 #include <string>
 #include <iostream>
+
 using std::string;
 using std::stringstream;
 using std::ostream;
 using std::istream;
 using std::endl;
+
+
+
+
 
 /**
  * Copy Constructor of the Book List
@@ -24,6 +31,7 @@ using std::endl;
  */
 BookList::BookList(const BookList &other) {
 }
+
 
 /**
  * Copy Assignment operator of the Book List
@@ -35,6 +43,7 @@ BookList &BookList::operator=(const BookList &rhs) {
     return *this;
 }
 
+
 /**
  * Default constructor
  * Add your comments
@@ -44,6 +53,7 @@ BookList::BookList() {
     _size =0;
 
 }
+
 
 /**
  * Destructor
@@ -59,6 +69,7 @@ BookList::~BookList() {
     }
 
 }
+
 
 /**
  * @this method adds an entire book to the list
@@ -76,6 +87,7 @@ bool BookList::AddBook(const Book &book) {
 
     return true;
 }
+
 
 /**
  * @this method adds a book with a name, isbn number and publishing date
@@ -97,6 +109,9 @@ bool BookList::AddBook(const string &name, const string &isbn, unsigned int year
     return true;
 }
 
+
+
+
 /**
  * @this method adds a book with a name, isbn number and publishing date
  * @param name
@@ -116,8 +131,11 @@ bool BookList::AddBook(const string &name, unsigned int year) {
     return true;
 }
 
+
 /**
- * Add your comments
+ * This function takes in an isbn as a parameter, iterates through
+ * the list to find the position of the given isbn.
+ *
  * @param isbn the isbn of the book the user is searching for
  * @return position of the book in the list if found, -1 otherwise
  */
@@ -133,6 +151,9 @@ int BookList::IndexOf(const string &isbn) const {
 
     return -1;
 }
+
+
+
 
 /**
  * Add your comments
@@ -154,17 +175,21 @@ const Book *BookList::Get(unsigned int position) const {
     return nullptr;
 }
 
+
+
+
 /**
- * Add your comments
+ * This method is to remove a book from the list
+ *
  * @param position
- * @return
+ * @return false if _head is null or if the position is invalid
  */
 bool BookList::Remove(unsigned int position) {
-
+    // checks if head is null
     if (_head == nullptr){
         return false;
     }
-
+    // deletes if the positon in the first node
     if (position == 0) {
         Node *nodeToDelete = _head;
         _head = _head->next;
@@ -172,7 +197,7 @@ bool BookList::Remove(unsigned int position) {
         _size--;
         return true;
     }
-
+    // checks if position is valid, if it is, program continues to try and delete
     if (position < _size) {
         Node *tmp = _head;
 
@@ -181,7 +206,6 @@ bool BookList::Remove(unsigned int position) {
                 tmp = tmp->next;
             }
         }
-
         if (tmp != nullptr && tmp->next != nullptr) {
             Node *nodeToDelete = tmp->next;
             tmp->next = tmp->next->next;
@@ -190,11 +214,16 @@ bool BookList::Remove(unsigned int position) {
         _size--;
         return true;
 }
+    // if position is in valid
     return false;
 }
 
+
+
 /**
- * Add your comments.
+ * This method iterates through the linked list taking each book and
+ * printing it out in a string format all on one line
+ *
  * Format for string to be returned:
  * [Book1Name.Book1ISBN.Book1Year, Book2Name.Book2ISBN, Book2Year, ...]
  * @return
@@ -216,6 +245,7 @@ string BookList::ToString() const {
 
 /**
  * Reads from an input stream, each book will be stored in the stream in a single line.
+ *
  * @param input stream to read from
  * @return input to allow stream chaining
  */
@@ -235,6 +265,7 @@ istream &BookList::Read(istream &input) {
 
 /**
  * Writes to the output stream, each book should be stored in a single line.
+ *
  * @param output
  * @return output to allow stream chaining
  */
@@ -248,8 +279,14 @@ ostream &BookList::Write(ostream &output) const {
 
 }
 
+
+
+
 /**
- * Add your comments
+ * This method is called to clear the entire linked list and
+ * initialize the head and size to default values of
+ * null and zero
+ *
  */
 void BookList::Clear() {
 
@@ -264,8 +301,13 @@ void BookList::Clear() {
     _size = 0;
 }
 
+
+
+
 /**
- * Add your comments
+ * This method iterates through the linked list taking each book and
+ * printing it out in a json format all on one line
+ *
  * Example:
  * [{"name":"book one", "isbn":"1234567890", "year":1900}, {"name":"book two", "isbn":"0987654321", "year":1901}]
  * @return
@@ -289,8 +331,12 @@ string BookList::ToJSON() const {
     return booklist;
 }
 
+
+
+
 /**
- * Add your comments
+ * This method is called to find out the current size of the list
+ *
  * @return
  */
 unsigned int BookList::Size() const {
@@ -298,8 +344,12 @@ unsigned int BookList::Size() const {
     return _size;
 }
 
+
+
+
 /**
- * Add your comments
+ * this is a copy constructor
+ *
  * @param book
  */
 BookList::Node::Node(const Book &book) {
@@ -307,7 +357,10 @@ BookList::Node::Node(const Book &book) {
     next = nullptr;
 }
 
-/** Add your comments
+
+
+
+/** Defualt constructor
  *
  */
 BookList::Node::Node() {
