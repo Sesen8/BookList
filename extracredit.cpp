@@ -70,7 +70,7 @@ int main(int argc, char* argv[]) {
             string yearString;
             int yearInt;
 
-            cin.ignore(); // help from ethan 
+            cin.ignore(); // help from lab assistant ethan
             cout << "Enter the name of the book you would like to add: " << endl;
             //getline(cin, name);
             getline(cin, name);
@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
         // CHECKS IF USER SELECTED MENU OPTION 2, FINDS A BOOK
         if (selectedOption ==1){
             if(bookList->Size() == 0){
-                cout << "Need to create array first!" << endl;
+                cout << "Need to create list first!" << endl;
                 cout << endl;
                 continue;
             }
@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
         // CHECKS IF USER SELECTED MENU OPTION 3, GETS A BOOK
         if (selectedOption ==2) {
             if (bookList->Size() == 0) {
-                cout << "Need to create array first!" << endl;
+                cout << "Need to create list first!" << endl;
                 cout << endl;
                 continue;
             }
