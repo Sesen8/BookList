@@ -70,7 +70,7 @@ int main(int argc, char* argv[]) {
             string yearString;
             int yearInt;
 
-            cin.ignore();
+            cin.ignore(); // help from ethan 
             cout << "Enter the name of the book you would like to add: " << endl;
             //getline(cin, name);
             getline(cin, name);
