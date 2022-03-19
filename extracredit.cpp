@@ -167,10 +167,12 @@ int main(int argc, char* argv[]) {
                 cout << endl;
                 continue;
             }
+
             string isbn;
             cout << "Input the isbn for the book you want to remove ";
             cout << endl;
             cin >> isbn;
+            
             if (bookList->IndexOf(isbn) != -1){
                 bookList->Remove(bookList->IndexOf(isbn));
                 cout << "Book removed successfully" << endl;
@@ -180,6 +182,7 @@ int main(int argc, char* argv[]) {
                 cout << "Sorry that book is not in our system" << endl;
             }
             cout << endl;
+
         }
 
 
