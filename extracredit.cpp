@@ -137,7 +137,8 @@ int main(int argc, char* argv[]) {
                     cout << "The book at position " << position << " is " << book->ToString() << endl;
                 }
                 cout << endl;
-            } else {
+            }
+            else {
                 cout << "Sorry this position is invalid!" << endl;
                 cout << endl;
             }
@@ -172,7 +173,7 @@ int main(int argc, char* argv[]) {
             cout << "Input the isbn for the book you want to remove ";
             cout << endl;
             cin >> isbn;
-            
+
             if (bookList->IndexOf(isbn) != -1){
                 bookList->Remove(bookList->IndexOf(isbn));
                 cout << "Book removed successfully" << endl;
