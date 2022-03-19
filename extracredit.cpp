@@ -91,10 +91,6 @@ int main(int argc, char* argv[]) {
             cout << "Book Added Successfully!" << endl;
             cout << endl;
             }
-
-
-
-
         }
 
 
@@ -171,19 +167,19 @@ int main(int argc, char* argv[]) {
                 cout << endl;
                 continue;
             }
-            cout <<"What is the position of the book you want to remove: ";
-            int removePos;
-            cin >> removePos;
-
-            if (bookList->Get(removePos) == nullptr){
-                cout << "Sorry that seems to be an invalid position" << endl;
+            string isbn;
+            cout << "Input the isbn for the book you want to remove ";
+            cout << endl;
+            cin >> isbn;
+            if (bookList->IndexOf(isbn) != -1){
+                bookList->Remove(bookList->IndexOf(isbn));
+                cout << "Book removed successfully" << endl;
                 cout << endl;
             }
             else {
-                bookList->Remove(removePos);
-                cout << "Book in position " << removePos << " removed successfully" << endl;
-                cout << endl;
+                cout << "Sorry that book is not in our system" << endl;
             }
+            cout << endl;
         }
 
 

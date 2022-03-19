@@ -119,14 +119,12 @@ istream& Book::Read(istream &input) {
 // Implementation of Write to ostream method
 // This output *does not* include an end-line
 ostream& Book::Write(ostream &output) const {
-
     //gets the information from the class sent from the read function
     string name1 = GetName();
     string isbn1 = GetISBN();
     int year1 = GetYear();
 
     output << name1 << "." << isbn1 << "." << year1;
-
     return output;
 }
 
